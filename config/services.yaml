@@ -1,0 +1,4 @@
+services:
+    PoP\UserRoles\FieldResolvers\:
+        resource: '../src/FieldResolvers/*'
+        public: true
