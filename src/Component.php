@@ -33,5 +33,10 @@ class Component extends AbstractComponent
 
         // Initialize all classes
         ContainerBuilderUtils::attachFieldResolversFromNamespace(__NAMESPACE__.'\\FieldResolvers');
+
+        // Boot conditionals
+        if (class_exists('\PoP\UserState\Component')) {
+            \PoP\UserRoles\Conditional\UserState\ComponentBoot::boot();
+        }
     }
 }

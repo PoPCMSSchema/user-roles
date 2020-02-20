@@ -2,3 +2,7 @@ services:
     PoP\UserRoles\FieldResolvers\:
         resource: '../src/FieldResolvers/*'
         public: true
+
+    PoP\UserRoles\Conditional\UserState\TypeResolverDecorators\:
+        resource: '../src/Conditional/UserState/TypeResolverDecorators/*'
+        public: true
