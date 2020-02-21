@@ -39,11 +39,11 @@ class GlobalTypeResolverDecorator extends AbstractTypeResolverDecorator
         )) {
             $fieldQueryInterpreter = FieldQueryInterpreterFacade::getInstance();
             $mandatoryDirectivesForFields['roles'] = [
-                $fieldQueryInterpreter->composeDirective(
+                $fieldQueryInterpreter->getDirective(
                     ValidateDoesLoggedInUserHaveRoleDirectiveResolver::getDirectiveName(),
-                    $fieldQueryInterpreter->getFieldArgsAsString([
+                    [
                         'role' => $requiredRoleName,
-                    ])
+                    ]
                 )
             ];
         }
@@ -61,7 +61,7 @@ class GlobalTypeResolverDecorator extends AbstractTypeResolverDecorator
         $mandatoryDirectivesForDirectives = [];
         $fieldQueryInterpreter = FieldQueryInterpreterFacade::getInstance();
         // This is the required "validateIsUserLoggedIn" directive
-        $validateIsUserLoggedInDirective = $fieldQueryInterpreter->composeDirective(
+        $validateIsUserLoggedInDirective = $fieldQueryInterpreter->getDirective(
             ValidateIsUserLoggedInDirectiveResolver::getDirectiveName()
         );
         // These are all the directives that need the "validateIsUserLoggedIn" directive
