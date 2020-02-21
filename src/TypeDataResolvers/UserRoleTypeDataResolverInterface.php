@@ -2,6 +2,13 @@
 namespace PoP\UserRoles\TypeDataResolvers;
 
 interface UserRoleTypeDataResolverInterface {
+
+    /**
+     * Admin role name
+     *
+     * @return string
+     */
+    public function getAdminRoleName(): string;
     /**
      * Role names
      *

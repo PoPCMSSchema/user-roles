@@ -1,6 +1,8 @@
 <?php
 namespace PoP\UserRoles\Conditional\UserState\TypeResolverDecorators;
 
+use PoP\Hooks\Facades\HooksAPIFacade;
+use PoP\UserRoles\Facades\UserRoleTypeDataResolverFacade;
 use PoP\ComponentModel\TypeResolvers\AbstractTypeResolver;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\Facades\Schema\FieldQueryInterpreterFacade;
@@ -11,6 +13,8 @@ use PoP\UserRoles\Conditional\UserState\DirectiveResolvers\ValidateDoesLoggedInU
 
 class GlobalTypeResolverDecorator extends AbstractTypeResolverDecorator
 {
+    public const HOOK_ROLES_FIELD_REQUIRED_ROLE_NAME = __CLASS__.':roles_field:required_role_name';
+
     public static function getClassesToAttachTo(): array
     {
         return array(
@@ -19,21 +23,31 @@ class GlobalTypeResolverDecorator extends AbstractTypeResolverDecorator
     }
 
     /**
-     * Only logged-in users can see the roles of the users
+     * By default, only the admin can see the roles from the users
      *
      * @param TypeResolverInterface $typeResolver
      * @return array
      */
     public function getMandatoryDirectivesForFields(TypeResolverInterface $typeResolver): array
     {
-        $fieldQueryInterpreter = FieldQueryInterpreterFacade::getInstance();
-        return [
-            'roles' => [
+        $mandatoryDirectivesForFields = [];
+        $hooksAPI = HooksAPIFacade::getInstance();
+        $userRoleTypeDataResolver = UserRoleTypeDataResolverFacade::getInstance();
+        if ($requiredRoleName = $hooksAPI->applyFilters(
+            self::HOOK_ROLES_FIELD_REQUIRED_ROLE_NAME,
+            $userRoleTypeDataResolver->getAdminRoleName()
+        )) {
+            $fieldQueryInterpreter = FieldQueryInterpreterFacade::getInstance();
+            $mandatoryDirectivesForFields['roles'] = [
                 $fieldQueryInterpreter->composeDirective(
-                    ValidateIsUserLoggedInDirectiveResolver::getDirectiveName()
+                    ValidateDoesLoggedInUserHaveRoleDirectiveResolver::getDirectiveName(),
+                    $fieldQueryInterpreter->getFieldArgsAsString([
+                        'role' => $requiredRoleName,
+                    ])
                 )
-            ]
-        ];
+            ];
+        }
+        return $mandatoryDirectivesForFields;
     }
 
     /**
