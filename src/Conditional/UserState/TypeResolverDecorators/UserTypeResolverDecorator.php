@@ -17,7 +17,7 @@ class UserTypeResolverDecorator extends AbstractTypeResolverDecorator
     }
 
     /**
-     * Only the admin can see the roles of the users
+     * Only logged-in users can see the roles of the users
      *
      * @param TypeResolverInterface $typeResolver
      * @return array
