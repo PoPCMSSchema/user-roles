@@ -6,14 +6,14 @@ use PoP\UserRoles\FieldResolvers\RootRolesFieldResolver;
 use PoP\UserRoles\FieldResolvers\SiteRolesFieldResolver;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\FieldResolvers\FieldResolverInterface;
-use PoP\UserRoles\Conditional\UserState\TypeResolverDecorators\GlobalTypeResolverDecorator;
+use PoP\UserRoles\Conditional\UserState\TypeResolverDecorators\RolesTypeResolverDecorator;
 use PoP\UserRoles\Hooks\AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet;
 
 class MaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet extends AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet
 {
     protected function getRoleName(): ?string
     {
-        return GlobalTypeResolverDecorator::getRolesFieldRequiredRoleName();
+        return RolesTypeResolverDecorator::getRolesFieldRequiredRoleName();
     }
 
     /**
