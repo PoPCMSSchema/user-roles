@@ -1,7 +1,8 @@
 <?php
 namespace PoP\UserRoles\Conditional\UserState\Hooks;
 
-use PoP\UserRoles\FieldResolvers\SiteFieldResolver;
+use PoP\UserRoles\FieldResolvers\SiteRolesFieldResolver;
+use PoP\UserRoles\FieldResolvers\RootRolesFieldResolver;
 use PoP\UserRoles\FieldResolvers\UserFieldResolver;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\FieldResolvers\FieldResolverInterface;
@@ -33,7 +34,11 @@ class FieldResolverHooks extends AbstractMaybeDisableUserStateFieldsIfUserNotLog
     protected function removeFieldNames(TypeResolverInterface $typeResolver, FieldResolverInterface $fieldResolver, string $fieldName): bool
     {
         return
-            ($fieldResolver instanceof SiteFieldResolver || $fieldResolver instanceof UserFieldResolver) &&
+            (
+                $fieldResolver instanceof RootRolesFieldResolver ||
+                $fieldResolver instanceof SiteRolesFieldResolver ||
+                $fieldResolver instanceof UserFieldResolver
+            ) &&
             ($fieldName == 'roles');
     }
 }

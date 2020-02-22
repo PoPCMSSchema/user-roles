@@ -1,23 +1,14 @@
 <?php
 namespace PoP\UserRoles\FieldResolvers;
 
-use PoP\API\TypeResolvers\SiteTypeResolver;
 use PoP\ComponentModel\Schema\SchemaDefinition;
 use PoP\ComponentModel\Schema\TypeCastingHelpers;
 use PoP\Translation\Facades\TranslationAPIFacade;
-use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
-use PoP\ComponentModel\FieldResolvers\AbstractDBDataFieldResolver;
 use PoP\UserRoles\Facades\UserRoleTypeDataResolverFacade;
+use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 
-class SiteFieldResolver extends AbstractDBDataFieldResolver
+trait RolesFieldResolverTrait
 {
-    public static function getClassesToAttachTo(): array
-    {
-        return [
-            SiteTypeResolver::class,
-        ];
-    }
-
     public static function getFieldNamesToResolve(): array
     {
         return [
