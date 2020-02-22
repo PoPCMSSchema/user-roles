@@ -2,8 +2,9 @@
 namespace PoP\UserRoles\Conditional\UserState\TypeResolverDecorators;
 
 use PoP\Hooks\Facades\HooksAPIFacade;
+use PoP\API\TypeResolvers\SiteTypeResolver;
+use PoP\Users\TypeResolvers\UserTypeResolver;
 use PoP\UserRoles\Facades\UserRoleTypeDataResolverFacade;
-use PoP\ComponentModel\TypeResolvers\AbstractTypeResolver;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\Facades\Schema\FieldQueryInterpreterFacade;
 use PoP\ComponentModel\TypeResolverDecorators\AbstractTypeResolverDecorator;
@@ -19,7 +20,8 @@ class GlobalTypeResolverDecorator extends AbstractTypeResolverDecorator
     public static function getClassesToAttachTo(): array
     {
         return array(
-            AbstractTypeResolver::class,
+            UserTypeResolver::class,
+            SiteTypeResolver::class,
         );
     }
 

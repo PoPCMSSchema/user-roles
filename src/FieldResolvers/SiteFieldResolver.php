@@ -13,7 +13,9 @@ class SiteFieldResolver extends AbstractDBDataFieldResolver
 {
     public static function getClassesToAttachTo(): array
     {
-        return array(SiteTypeResolver::class);
+        return [
+            SiteTypeResolver::class,
+        ];
     }
 
     public static function getFieldNamesToResolve(): array
