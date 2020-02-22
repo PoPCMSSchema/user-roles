@@ -1,25 +1,19 @@
 <?php
 namespace PoP\UserRoles\Conditional\UserState\Hooks;
 
-use PoP\UserRoles\FieldResolvers\SiteRolesFieldResolver;
-use PoP\UserRoles\FieldResolvers\RootRolesFieldResolver;
 use PoP\UserRoles\FieldResolvers\UserFieldResolver;
+use PoP\UserRoles\FieldResolvers\RootRolesFieldResolver;
+use PoP\UserRoles\FieldResolvers\SiteRolesFieldResolver;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\FieldResolvers\FieldResolverInterface;
 use PoP\UserRoles\Conditional\UserState\TypeResolverDecorators\GlobalTypeResolverDecorator;
-use PoP\UserState\Hooks\AbstractMaybeDisableUserStateFieldsIfUserNotLoggedInFieldResolverHooks;
+use PoP\UserRoles\Hooks\AbstractMaybeDisableUserStateFieldsIfLoggedInUserDoesNotHaveRoleFieldResolverHooks;
 
-class FieldResolverHooks extends AbstractMaybeDisableUserStateFieldsIfUserNotLoggedInFieldResolverHooks
+class FieldResolverHooks extends AbstractMaybeDisableUserStateFieldsIfLoggedInUserDoesNotHaveRoleFieldResolverHooks
 {
-    protected function disableUserStateFields(): bool
+    protected function getRoleName(): ?string
     {
-        /**
-         * Only if there is a required role to access the field
-         */
-        if (!GlobalTypeResolverDecorator::getRolesFieldRequiredRoleName()) {
-            return false;
-        }
-        return parent::disableUserStateFields();
+        return GlobalTypeResolverDecorator::getRolesFieldRequiredRoleName();
     }
 
     /**
