@@ -35,7 +35,7 @@ class ValidateDoesLoggedInUserHaveRoleDirectiveResolver extends AbstractValidate
         $role = $this->directiveArgsForSchema['role'];
         $translationAPI = TranslationAPIFacade::getInstance();
         return sprintf(
-            $translationAPI->__('You must have role \'%s\' to access fields \'%s\'', 'user-state'),
+            $translationAPI->__('You must have role \'%s\' to access field(s) \'%s\'', 'user-state'),
             $role,
             implode(
                 $translationAPI->__('\', \''),

@@ -35,7 +35,7 @@ class ValidateDoesLoggedInUserHaveCapabilityDirectiveResolver extends AbstractVa
         $capability = $this->directiveArgsForSchema['capability'];
         $translationAPI = TranslationAPIFacade::getInstance();
         return sprintf(
-            $translationAPI->__('You must have capability \'%s\' to access fields \'%s\'', 'user-state'),
+            $translationAPI->__('You must have capability \'%s\' to access field(s) \'%s\'', 'user-state'),
             $capability,
             implode(
                 $translationAPI->__('\', \''),

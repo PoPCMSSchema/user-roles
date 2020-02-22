@@ -7,9 +7,9 @@ use PoP\UserRoles\FieldResolvers\SiteRolesFieldResolver;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\FieldResolvers\FieldResolverInterface;
 use PoP\UserRoles\Conditional\UserState\TypeResolverDecorators\GlobalTypeResolverDecorator;
-use PoP\UserRoles\Hooks\AbstractMaybeDisableUserStateFieldsIfLoggedInUserDoesNotHaveRoleFieldResolverHooks;
+use PoP\UserRoles\Hooks\AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet;
 
-class FieldResolverHooks extends AbstractMaybeDisableUserStateFieldsIfLoggedInUserDoesNotHaveRoleFieldResolverHooks
+class MaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet extends AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet
 {
     protected function getRoleName(): ?string
     {
