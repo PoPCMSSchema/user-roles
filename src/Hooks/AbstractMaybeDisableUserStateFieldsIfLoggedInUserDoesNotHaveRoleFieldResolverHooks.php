@@ -24,7 +24,7 @@ abstract class AbstractMaybeDisableUserStateFieldsIfLoggedInUserDoesNotHaveRoleF
         // Check if the user has the required role
         $userRoleTypeDataResolver = UserRoleTypeDataResolverFacade::getInstance();
         $userStateTypeDataResolverFacade = UserStateTypeDataResolverFacade::getInstance();
-        $userID = $userStateTypeDataResolverFacade->getCurrentUserId();
+        $userID = $userStateTypeDataResolverFacade->getCurrentUserID();
         $userRoles = $userRoleTypeDataResolver->getUserRoles($userID);
         return !in_array($roleName, $userRoles);
     }
