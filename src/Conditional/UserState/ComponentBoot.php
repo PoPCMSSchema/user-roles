@@ -16,6 +16,7 @@ class ComponentBoot
     public static function boot()
     {
         // Initialize classes
+        ContainerBuilderUtils::instantiateNamespaceServices(__NAMESPACE__.'\\Hooks');
         ContainerBuilderUtils::attachTypeResolverDecoratorsFromNamespace(__NAMESPACE__.'\\TypeResolverDecorators');
         ContainerBuilderUtils::attachDirectiveResolversFromNamespace(__NAMESPACE__.'\\DirectiveResolvers');
     }

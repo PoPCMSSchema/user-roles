@@ -1,4 +1,9 @@
 services:
+    _defaults:
+        bind:
+            PoP\Hooks\HooksAPIInterface: '@hooks_api'
+            PoP\Translation\TranslationAPIInterface: '@translation_api'
+
     PoP\UserRoles\FieldResolvers\:
         resource: '../src/FieldResolvers/*'
         public: true
@@ -9,4 +14,8 @@ services:
 
     PoP\UserRoles\Conditional\UserState\DirectiveResolvers\:
         resource: '../src/Conditional/UserState/DirectiveResolvers/*'
+        public: true
+
+    PoP\UserRoles\Conditional\UserState\Hooks\:
+        resource: '../src/Conditional/UserState/Hooks/*'
         public: true

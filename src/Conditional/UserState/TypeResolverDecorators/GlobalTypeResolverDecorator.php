@@ -14,12 +14,29 @@ use PoP\UserRoles\Conditional\UserState\DirectiveResolvers\ValidateDoesLoggedInU
 class GlobalTypeResolverDecorator extends AbstractTypeResolverDecorator
 {
     public const HOOK_ROLES_FIELD_REQUIRED_ROLE_NAME = __CLASS__.':roles_field:required_role_name';
+    public static $rolesFieldRequiredRoleName = false;
 
     public static function getClassesToAttachTo(): array
     {
         return array(
             AbstractTypeResolver::class,
         );
+    }
+
+    public static function getRolesFieldRequiredRoleName(): ?string
+    {
+        // Check if to initialize it
+        if (self::$rolesFieldRequiredRoleName === false) {
+            $hooksAPI = HooksAPIFacade::getInstance();
+            $userRoleTypeDataResolver = UserRoleTypeDataResolverFacade::getInstance();
+            $rolesFieldRequiredRoleName = $hooksAPI->applyFilters(
+                self::HOOK_ROLES_FIELD_REQUIRED_ROLE_NAME,
+                $userRoleTypeDataResolver->getAdminRoleName()
+            );
+            // If it was set to false, then set it as null, so the hook is not triggered again
+            self::$rolesFieldRequiredRoleName = ($rolesFieldRequiredRoleName === false) ? null : $rolesFieldRequiredRoleName;
+        }
+        return self::$rolesFieldRequiredRoleName;
     }
 
     /**
@@ -31,12 +48,7 @@ class GlobalTypeResolverDecorator extends AbstractTypeResolverDecorator
     public function getMandatoryDirectivesForFields(TypeResolverInterface $typeResolver): array
     {
         $mandatoryDirectivesForFields = [];
-        $hooksAPI = HooksAPIFacade::getInstance();
-        $userRoleTypeDataResolver = UserRoleTypeDataResolverFacade::getInstance();
-        if ($requiredRoleName = $hooksAPI->applyFilters(
-            self::HOOK_ROLES_FIELD_REQUIRED_ROLE_NAME,
-            $userRoleTypeDataResolver->getAdminRoleName()
-        )) {
+        if ($requiredRoleName = self::getRolesFieldRequiredRoleName()) {
             $fieldQueryInterpreter = FieldQueryInterpreterFacade::getInstance();
             $mandatoryDirectivesForFields['roles'] = [
                 $fieldQueryInterpreter->getDirective(
