@@ -7,7 +7,7 @@ use PoP\UserState\Hooks\AbstractMaybeDisableUserStateFieldsIfUserNotLoggedInFiel
 
 abstract class AbstractMaybeDisableUserStateFieldsIfLoggedInUserDoesNotHaveRoleFieldResolverHooks extends AbstractMaybeDisableUserStateFieldsIfUserNotLoggedInFieldResolverHooks
 {
-    protected function disableUserStateFields(): bool
+    protected function disableFieldsInPrivateSchemaMode(): bool
     {
         $roleName = $this->getRoleName();
         /**
@@ -17,7 +17,7 @@ abstract class AbstractMaybeDisableUserStateFieldsIfLoggedInUserDoesNotHaveRoleF
             return false;
         }
         // If the user is not logged-in, then already disable
-        if (parent::disableUserStateFields()) {
+        if (parent::disableFieldsInPrivateSchemaMode()) {
             return true;
         }
 
