@@ -13,7 +13,7 @@ class MaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet extends AbstractMay
 {
     protected function getRoleName(): ?string
     {
-        return Environment::roleUserMustHaveToAccessRolesField();
+        return Environment::roleLoggedInUserMustHaveToAccessRolesFields();
     }
 
     /**
@@ -33,6 +33,9 @@ class MaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet extends AbstractMay
                 $fieldResolver instanceof SiteRolesFieldResolver ||
                 $fieldResolver instanceof UserFieldResolver
             ) &&
-            ($fieldName == 'roles');
+            in_array($fieldName, [
+                'roles',
+                'capabilities',
+            ]);
     }
 }

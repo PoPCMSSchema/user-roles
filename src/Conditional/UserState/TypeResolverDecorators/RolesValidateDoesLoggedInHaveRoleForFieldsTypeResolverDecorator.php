@@ -20,13 +20,14 @@ class RolesValidateDoesLoggedInHaveRoleForFieldsTypeResolverDecorator extends Ab
 
     protected function getRoleName(): ?string
     {
-        return Environment::roleUserMustHaveToAccessRolesField();
+        return Environment::roleLoggedInUserMustHaveToAccessRolesFields();
     }
 
     protected function getFieldNames(): array
     {
         return [
             'roles',
+            'capabilities',
         ];
     }
 }
