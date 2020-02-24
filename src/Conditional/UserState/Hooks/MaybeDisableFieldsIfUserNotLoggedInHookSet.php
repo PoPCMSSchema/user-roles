@@ -8,6 +8,10 @@ class MaybeDisableFieldsIfUserNotLoggedInHookSet extends AbstractMaybeDisableFie
 {
     protected function enabled(): bool
     {
+        if (!parent::enabled()) {
+            return false;
+        }
+
         return Environment::userMustBeLoggedInToAccessRolesFields();
     }
     /**

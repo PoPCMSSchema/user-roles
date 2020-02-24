@@ -2,23 +2,31 @@
 namespace PoP\UserRoles\Hooks;
 
 use PoP\UserRoles\Helpers\UserRoleHelper;
+use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\UserState\Hooks\AbstractMaybeDisableDirectivesIfUserNotLoggedInHookSet;
 
 abstract class AbstractMaybeDisableDirectivesIfLoggedInUserDoesNotHaveCapabilityHookSet extends AbstractMaybeDisableDirectivesIfUserNotLoggedInHookSet
 {
-    protected function disableDirectivesInPrivateSchemaMode(): bool
+    protected function enabled(): bool
     {
-        $capability = $this->getCapability();
-        /**
-         * Only if there is a required role to access the directive
-         */
-        if (!$capability) {
+        // If the user is not logged-in, then already disable
+        if (!parent::enabled()) {
             return false;
         }
-        // If the user is not logged-in, then already disable
-        if (parent::disableDirectivesInPrivateSchemaMode()) {
-            return true;
-        }
+
+        return !is_null($this->getCapability());
+    }
+
+    /**
+     * Decide if to remove the directiveNames
+     *
+     * @param TypeResolverInterface $typeResolver
+     * @param string $directiveName
+     * @return boolean
+     */
+    protected function removeDirectiveNames(TypeResolverInterface $typeResolver, ?string $directiveName = null): bool
+    {
+        $capability = $this->getCapability();
 
         // Check if the user does not have the required role
         return !UserRoleHelper::doesCurrentUserHaveCapability($capability);
