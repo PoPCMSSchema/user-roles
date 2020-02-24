@@ -15,4 +15,14 @@ class UserRoleHelper
         $userRoles = $userRoleTypeDataResolver->getUserRoles($userID);
         return in_array($roleName, $userRoles);
     }
+
+    public static function doesCurrentUserHaveCapability(string $capability): bool
+    {
+        // Check if the user has the required role
+        $userRoleTypeDataResolver = UserRoleTypeDataResolverFacade::getInstance();
+        $userStateTypeDataResolverFacade = UserStateTypeDataResolverFacade::getInstance();
+        $userID = $userStateTypeDataResolverFacade->getCurrentUserID();
+        $userCapabilities = $userRoleTypeDataResolver->getUserCapabilities($userID);
+        return in_array($capability, $userCapabilities);
+    }
 }

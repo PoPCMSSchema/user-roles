@@ -12,5 +12,10 @@ class Environment
     {
         return isset($_ENV['ROLE_LOGGED_IN_USER_MUST_HAVE_TO_ACCESS_ROLES_FIELDS']) && $_ENV['ROLE_LOGGED_IN_USER_MUST_HAVE_TO_ACCESS_ROLES_FIELDS'] ? strtolower($_ENV['ROLE_LOGGED_IN_USER_MUST_HAVE_TO_ACCESS_ROLES_FIELDS']) : null;
     }
+
+    public static function capabilityLoggedInUserMustHaveToAccessRolesFields(): ?string
+    {
+        return isset($_ENV['CAPABILITY_LOGGED_IN_USER_MUST_HAVE_TO_ACCESS_ROLES_FIELDS']) && $_ENV['CAPABILITY_LOGGED_IN_USER_MUST_HAVE_TO_ACCESS_ROLES_FIELDS'] ? strtolower($_ENV['CAPABILITY_LOGGED_IN_USER_MUST_HAVE_TO_ACCESS_ROLES_FIELDS']) : null;
+    }
 }
 
