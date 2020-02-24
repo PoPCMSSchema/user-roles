@@ -2,11 +2,11 @@
 namespace PoP\UserRoles\Conditional\UserState\TypeResolverDecorators;
 
 use PoP\ComponentModel\TypeResolvers\AbstractTypeResolver;
-use PoP\UserState\TypeResolverDecorators\AbstractValidateIsUserLoggedInTypeResolverDecorator;
+use PoP\UserState\TypeResolverDecorators\AbstractValidateIsUserLoggedInForDirectivesTypeResolverDecorator;
 use PoP\UserRoles\Conditional\UserState\DirectiveResolvers\ValidateDoesLoggedInUserHaveRoleDirectiveResolver;
 use PoP\UserRoles\Conditional\UserState\DirectiveResolvers\ValidateDoesLoggedInUserHaveCapabilityDirectiveResolver;
 
-class GlobalValidateIsUserLoggedInTypeResolverDecorator extends AbstractValidateIsUserLoggedInTypeResolverDecorator
+class GlobalValidateIsUserLoggedInTypeResolverDecorator extends AbstractValidateIsUserLoggedInForDirectivesTypeResolverDecorator
 {
     public static function getClassesToAttachTo(): array
     {
