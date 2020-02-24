@@ -3,9 +3,9 @@ namespace PoP\UserRoles\Hooks;
 
 use PoP\UserRoles\Helpers\UserRoleHelper;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
-use PoP\UserState\Hooks\AbstractMaybeDisableDirectivesIfUserNotLoggedInHookSet;
+use PoP\UserState\Hooks\AbstractMaybeDisableDirectivesIfUserNotLoggedInPrivateSchemaHookSet;
 
-abstract class AbstractMaybeDisableDirectivesIfLoggedInUserDoesNotHaveCapabilityHookSet extends AbstractMaybeDisableDirectivesIfUserNotLoggedInHookSet
+abstract class AbstractMaybeDisableDirectivesIfLoggedInUserDoesNotHaveCapabilityHookSet extends AbstractMaybeDisableDirectivesIfUserNotLoggedInPrivateSchemaHookSet
 {
     protected function enabled(): bool
     {
