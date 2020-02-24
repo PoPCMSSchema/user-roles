@@ -5,6 +5,7 @@ use PoP\API\TypeResolvers\RootTypeResolver;
 use PoP\API\TypeResolvers\SiteTypeResolver;
 use PoP\Users\TypeResolvers\UserTypeResolver;
 use PoP\UserRoles\Conditional\UserState\Environment;
+use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\UserState\TypeResolverDecorators\AbstractValidateIsUserLoggedInForFieldsTypeResolverDecorator;
 
 class RolesValidateIsUserLoggedInForFieldsTypeResolverDecorator extends AbstractValidateIsUserLoggedInForFieldsTypeResolverDecorator
@@ -18,9 +19,9 @@ class RolesValidateIsUserLoggedInForFieldsTypeResolverDecorator extends Abstract
         );
     }
 
-    protected function getCapability(): ?string
+    public function enabled(TypeResolverInterface $typeResolver): bool
     {
-        return Environment::capabilityLoggedInUserMustHaveToAccessRolesFields();
+        return parent::enabled($typeResolver) && Environment::userMustBeLoggedInToAccessRolesFields();
     }
 
     protected function getFieldNames(): array

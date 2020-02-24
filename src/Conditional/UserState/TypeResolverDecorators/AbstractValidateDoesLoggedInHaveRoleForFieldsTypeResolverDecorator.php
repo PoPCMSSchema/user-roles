@@ -3,11 +3,15 @@ namespace PoP\UserRoles\Conditional\UserState\TypeResolverDecorators;
 
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\Facades\Schema\FieldQueryInterpreterFacade;
-use PoP\ComponentModel\TypeResolverDecorators\AbstractTypeResolverDecorator;
+use PoP\ComponentModel\TypeResolverDecorators\AbstractPublicSchemaTypeResolverDecorator;
 use PoP\UserRoles\Conditional\UserState\DirectiveResolvers\ValidateDoesLoggedInUserHaveRoleDirectiveResolver;
 
-abstract class AbstractValidateDoesLoggedInHaveRoleForFieldsTypeResolverDecorator extends AbstractTypeResolverDecorator
+abstract class AbstractValidateDoesLoggedInHaveRoleForFieldsTypeResolverDecorator extends AbstractPublicSchemaTypeResolverDecorator
 {
+    protected function onlyForPublicSchema(): bool
+    {
+        return true;
+    }
     /**
      * By default, only the admin can see the roles from the users
      *
