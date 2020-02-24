@@ -6,7 +6,7 @@ use PoP\UserState\TypeResolverDecorators\AbstractValidateIsUserLoggedInForDirect
 use PoP\UserRoles\Conditional\UserState\DirectiveResolvers\ValidateDoesLoggedInUserHaveRoleDirectiveResolver;
 use PoP\UserRoles\Conditional\UserState\DirectiveResolvers\ValidateDoesLoggedInUserHaveCapabilityDirectiveResolver;
 
-class GlobalValidateIsUserLoggedInTypeResolverDecorator extends AbstractValidateIsUserLoggedInForDirectivesTypeResolverDecorator
+class GlobalValidateIsUserLoggedInForDirectivesTypeResolverDecorator extends AbstractValidateIsUserLoggedInForDirectivesTypeResolverDecorator
 {
     public static function getClassesToAttachTo(): array
     {
