@@ -7,13 +7,13 @@ use PoP\UserRoles\FieldResolvers\RootRolesFieldResolver;
 use PoP\UserRoles\FieldResolvers\SiteRolesFieldResolver;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\FieldResolvers\FieldResolverInterface;
-use PoP\UserRoles\Hooks\AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet;
+use PoP\UserRoles\Hooks\AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveCapabilityHookSet;
 
-class MaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet extends AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet
+class MaybeDisableFieldsIfLoggedInUserDoesNotHaveCapabilityHookSet extends AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveCapabilityHookSet
 {
-    protected function getRoleName(): ?string
+    protected function getCapability(): ?string
     {
-        return Environment::roleLoggedInUserMustHaveToAccessRolesFields();
+        return Environment::capabilityLoggedInUserMustHaveToAccessRolesFields();
     }
 
     /**
