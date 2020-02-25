@@ -1,9 +1,7 @@
 <?php
 namespace PoP\UserRoles\Conditional\UserState\Hooks;
 
-use PoP\UserRoles\FieldResolvers\UserFieldResolver;
-use PoP\UserRoles\FieldResolvers\RootRolesFieldResolver;
-use PoP\UserRoles\FieldResolvers\SiteRolesFieldResolver;
+use PoP\Users\TypeResolvers\UserTypeResolver;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\FieldResolvers\FieldResolverInterface;
 
@@ -23,7 +21,7 @@ trait MaybeDisableFieldsIfConditionPrivateSchemaHookSetTrait
     }
 
     /**
-     * Remove fieldName "roles" if the user is not logged in
+     * Remove fields for the User type
      *
      * @param boolean $include
      * @param TypeResolverInterface $typeResolver
@@ -33,9 +31,6 @@ trait MaybeDisableFieldsIfConditionPrivateSchemaHookSetTrait
      */
     protected function removeFieldNames(TypeResolverInterface $typeResolver, FieldResolverInterface $fieldResolver, string $fieldName): bool
     {
-        return
-            $fieldResolver instanceof RootRolesFieldResolver ||
-            $fieldResolver instanceof SiteRolesFieldResolver ||
-            $fieldResolver instanceof UserFieldResolver;
+        return $typeResolver instanceof UserTypeResolver;
     }
 }
