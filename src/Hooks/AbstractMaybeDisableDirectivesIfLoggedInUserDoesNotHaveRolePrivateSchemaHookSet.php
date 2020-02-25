@@ -3,6 +3,7 @@ namespace PoP\UserRoles\Hooks;
 
 use PoP\UserRoles\Helpers\UserRoleHelper;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
+use PoP\ComponentModel\DirectiveResolvers\DirectiveResolverInterface;
 use PoP\UserState\Hooks\AbstractMaybeDisableDirectivesIfUserNotLoggedInPrivateSchemaHookSet;
 
 abstract class AbstractMaybeDisableDirectivesIfLoggedInUserDoesNotHaveRolePrivateSchemaHookSet extends AbstractMaybeDisableDirectivesIfUserNotLoggedInPrivateSchemaHookSet
@@ -24,7 +25,7 @@ abstract class AbstractMaybeDisableDirectivesIfLoggedInUserDoesNotHaveRolePrivat
      * @param string $directiveName
      * @return boolean
      */
-    protected function removeDirectiveName(TypeResolverInterface $typeResolver, string $directiveName): bool
+    protected function removeDirectiveName(TypeResolverInterface $typeResolver, DirectiveResolverInterface $directiveResolver, string $directiveName): bool
     {
         $roleName = $this->getRoleName();
 
