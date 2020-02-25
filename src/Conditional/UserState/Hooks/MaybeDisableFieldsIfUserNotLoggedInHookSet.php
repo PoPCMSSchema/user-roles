@@ -6,6 +6,8 @@ use PoP\UserRoles\Conditional\UserState\Environment;
 
 class MaybeDisableFieldsIfUserNotLoggedInHookSet extends AbstractMaybeDisableFieldsIfUserNotLoggedInHookSet
 {
+    use MaybeDisableFieldsIfLoggedInUserDoesNotHaveItemHookSetTrait;
+
     protected function enabled(): bool
     {
         if (!parent::enabled()) {
@@ -13,17 +15,5 @@ class MaybeDisableFieldsIfUserNotLoggedInHookSet extends AbstractMaybeDisableFie
         }
 
         return Environment::userMustBeLoggedInToAccessRolesFields();
-    }
-    /**
-     * Disable fields "roles" and "capabilities"
-     *
-     * @return array
-     */
-    protected function getFieldNames(): array
-    {
-        return [
-            'roles',
-            'capabilities',
-        ];
     }
 }
