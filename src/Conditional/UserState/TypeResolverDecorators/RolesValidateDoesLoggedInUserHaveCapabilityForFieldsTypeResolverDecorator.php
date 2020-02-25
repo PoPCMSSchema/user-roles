@@ -1,33 +1,15 @@
 <?php
 namespace PoP\UserRoles\Conditional\UserState\TypeResolverDecorators;
 
-use PoP\API\TypeResolvers\RootTypeResolver;
-use PoP\API\TypeResolvers\SiteTypeResolver;
 use PoP\UserRoles\Conditional\UserState\Environment;
-use PoP\Users\TypeResolvers\UserTypeResolver;
 use PoP\UserRoles\Conditional\UserState\TypeResolverDecorators\AbstractValidateDoesLoggedInUserHaveCapabilityForFieldsTypeResolverDecorator;
 
 class RolesValidateDoesLoggedInUserHaveCapabilityForFieldsTypeResolverDecorator extends AbstractValidateDoesLoggedInUserHaveCapabilityForFieldsTypeResolverDecorator
 {
-    public static function getClassesToAttachTo(): array
-    {
-        return array(
-            RootTypeResolver::class,
-            SiteTypeResolver::class,
-            UserTypeResolver::class,
-        );
-    }
+    use RolesValidateConditionForFieldsTypeResolverDecoratorTrait;
 
     protected function getCapability(): ?string
     {
         return Environment::capabilityLoggedInUserMustHaveToAccessRolesFields();
-    }
-
-    protected function getFieldNames(): array
-    {
-        return [
-            'roles',
-            'capabilities',
-        ];
     }
 }
