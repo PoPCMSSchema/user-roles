@@ -26,14 +26,21 @@ abstract class AbstractValidateDoesLoggedInHaveRoleForDirectivesPublicSchemaType
                     'role' => $requiredRoleName,
                 ]
             );
-            foreach ($this->getDirectiveNames() as $directiveName) {
-                $mandatoryDirectivesForDirectives[$directiveName] = [
-                    $validateDoesLoggedInUserHaveRoleDirective,
-                ];
+            if ($directiveNames = array_map(
+                function($directiveResolverClass) {
+                    return $directiveResolverClass::getDirectiveName();
+                },
+                $this->getDirectiveResolverClasses()
+            )) {
+                foreach ($directiveNames as $directiveName) {
+                    $mandatoryDirectivesForDirectives[$directiveName] = [
+                        $validateDoesLoggedInUserHaveRoleDirective,
+                    ];
+                }
             }
         }
         return $mandatoryDirectivesForDirectives;
     }
     abstract protected function getRoleName(): ?string;
-    abstract protected function getDirectiveNames(): array;
+    abstract protected function getDirectiveResolverClasses(): array;
 }
