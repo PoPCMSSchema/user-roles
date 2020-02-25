@@ -17,13 +17,13 @@ abstract class AbstractValidateDoesLoggedInUserHaveRoleForDirectivesPublicSchema
     public function getMandatoryDirectivesForDirectives(TypeResolverInterface $typeResolver): array
     {
         $mandatoryDirectivesForDirectives = [];
-        if ($requiredRoleName = $this->getRoleName()) {
+        if ($roleNames = $this->getRoleNames()) {
             $fieldQueryInterpreter = FieldQueryInterpreterFacade::getInstance();
             // This is the directive to attach
             $validateDoesLoggedInUserHaveRoleDirective = $fieldQueryInterpreter->getDirective(
                 ValidateDoesLoggedInUserHaveRoleDirectiveResolver::getDirectiveName(),
                 [
-                    'role' => $requiredRoleName,
+                    'roles' => $roleNames,
                 ]
             );
             if ($directiveNames = array_map(
@@ -41,6 +41,6 @@ abstract class AbstractValidateDoesLoggedInUserHaveRoleForDirectivesPublicSchema
         }
         return $mandatoryDirectivesForDirectives;
     }
-    abstract protected function getRoleName(): ?string;
+    abstract protected function getRoleNames(): array;
     abstract protected function getDirectiveResolverClasses(): array;
 }

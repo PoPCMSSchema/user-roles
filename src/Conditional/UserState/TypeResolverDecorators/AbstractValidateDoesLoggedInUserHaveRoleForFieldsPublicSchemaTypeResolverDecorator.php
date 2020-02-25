@@ -21,13 +21,13 @@ abstract class AbstractValidateDoesLoggedInUserHaveRoleForFieldsPublicSchemaType
     public function getMandatoryDirectivesForFields(TypeResolverInterface $typeResolver): array
     {
         $mandatoryDirectivesForFields = [];
-        if ($requiredRoleName = $this->getRoleName()) {
+        if ($roleNames = $this->getRoleNames()) {
             $fieldQueryInterpreter = FieldQueryInterpreterFacade::getInstance();
             // This is the directive to attach
             $validateDoesLoggedInUserHaveRoleDirective = $fieldQueryInterpreter->getDirective(
                 ValidateDoesLoggedInUserHaveRoleDirectiveResolver::getDirectiveName(),
                 [
-                    'role' => $requiredRoleName,
+                    'roles' => $roleNames,
                 ]
             );
             foreach ($this->getFieldNames() as $fieldName) {
@@ -38,6 +38,6 @@ abstract class AbstractValidateDoesLoggedInUserHaveRoleForFieldsPublicSchemaType
         }
         return $mandatoryDirectivesForFields;
     }
-    abstract protected function getRoleName(): ?string;
+    abstract protected function getRoleNames(): array;
     abstract protected function getFieldNames(): array;
 }

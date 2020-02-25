@@ -15,7 +15,7 @@ abstract class AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRolePrivateSch
             return false;
         }
 
-        return !is_null($this->getRoleName());
+        return !empty($this->getRoleNames());
     }
 
     /**
@@ -30,10 +30,10 @@ abstract class AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRolePrivateSch
     {
         $isUserLoggedIn = $this->isUserLoggedIn();
 
-        $roleName = $this->getRoleName();
+        $roleNames = $this->getRoleNames();
 
-        // Check if the user does not have the required role
-        return !$isUserLoggedIn || !UserRoleHelper::doesCurrentUserHaveRole($roleName);
+        // Check if the user does not have any of the required roles
+        return !$isUserLoggedIn || !UserRoleHelper::doesCurrentUserHaveAnyRole($roleNames);
     }
 
     /**
@@ -41,5 +41,5 @@ abstract class AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRolePrivateSch
      *
      * @return string
      */
-    abstract protected function getRoleName(): ?string;
+    abstract protected function getRoleNames(): array;
 }

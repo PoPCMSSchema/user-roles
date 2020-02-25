@@ -8,8 +8,11 @@ class MaybeDisableFieldsIfLoggedInUserDoesNotHaveRolePrivateSchemaHookSet extend
 {
     use MaybeDisableFieldsIfConditionPrivateSchemaHookSetTrait;
 
-    protected function getRoleName(): ?string
+    protected function getRoleNames(): array
     {
-        return Environment::roleLoggedInUserMustHaveToAccessRolesFields();
+        if ($roleName = Environment::roleLoggedInUserMustHaveToAccessRolesFields()) {
+            return [$roleName];
+        }
+        return [];
     }
 }

@@ -15,7 +15,7 @@ abstract class AbstractMaybeDisableDirectivesIfLoggedInUserDoesNotHaveRolePrivat
             return false;
         }
 
-        return !is_null($this->getRoleName());
+        return !empty($this->getRoleNames());
     }
 
     /**
@@ -27,10 +27,10 @@ abstract class AbstractMaybeDisableDirectivesIfLoggedInUserDoesNotHaveRolePrivat
      */
     protected function removeDirectiveName(TypeResolverInterface $typeResolver, DirectiveResolverInterface $directiveResolver, string $directiveName): bool
     {
-        $roleName = $this->getRoleName();
+        $roleNames = $this->getRoleNames();
 
-        // Check if the user does not have the required role
-        return !UserRoleHelper::doesCurrentUserHaveRole($roleName);
+        // Check if the user does not have any of the required roles
+        return !UserRoleHelper::doesCurrentUserHaveAnyRole($roleNames);
     }
 
     /**
@@ -38,5 +38,5 @@ abstract class AbstractMaybeDisableDirectivesIfLoggedInUserDoesNotHaveRolePrivat
      *
      * @return string
      */
-    abstract protected function getRoleName(): ?string;
+    abstract protected function getRoleNames(): array;
 }

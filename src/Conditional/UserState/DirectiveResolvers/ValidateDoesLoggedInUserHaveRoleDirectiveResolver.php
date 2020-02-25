@@ -3,6 +3,7 @@ namespace PoP\UserRoles\Conditional\UserState\DirectiveResolvers;
 
 use PoP\ComponentModel\Engine_Vars;
 use PoP\ComponentModel\Schema\SchemaDefinition;
+use PoP\ComponentModel\Schema\TypeCastingHelpers;
 use PoP\Translation\Facades\TranslationAPIFacade;
 use PoP\UserRoles\Facades\UserRoleTypeDataResolverFacade;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
@@ -23,20 +24,23 @@ class ValidateDoesLoggedInUserHaveRoleDirectiveResolver extends AbstractValidate
             return true;
         }
 
-        $role = $this->directiveArgsForSchema['role'];
+        $roles = $this->directiveArgsForSchema['roles'];
         $userRoleTypeDataResolver = UserRoleTypeDataResolverFacade::getInstance();
         $userID = $vars['global-userstate']['current-user-id'];
         $userRoles = $userRoleTypeDataResolver->getUserRoles($userID);
-        return in_array($role, $userRoles);
+        return !empty(array_intersect($roles, $userRoles));
     }
 
     protected function getValidationFailedMessage(TypeResolverInterface $typeResolver, array $failedDataFields): string
     {
-        $role = $this->directiveArgsForSchema['role'];
+        $roles = $this->directiveArgsForSchema['roles'];
         $translationAPI = TranslationAPIFacade::getInstance();
         return sprintf(
-            $translationAPI->__('You must have role \'%s\' to access field(s) \'%s\'', 'user-state'),
-            $role,
+            $translationAPI->__('You must have any role from \'%s\' to access field(s) \'%s\'', 'user-state'),
+            implode(
+                $translationAPI->__('\', \''),
+                $roles
+            ),
             implode(
                 $translationAPI->__('\', \''),
                 $failedDataFields
@@ -47,16 +51,16 @@ class ValidateDoesLoggedInUserHaveRoleDirectiveResolver extends AbstractValidate
     public function getSchemaDirectiveDescription(TypeResolverInterface $typeResolver): ?string
     {
         $translationAPI = TranslationAPIFacade::getInstance();
-        return $translationAPI->__('It validates if the user has the role provided through directive argument \'role\'', 'component-model');
+        return $translationAPI->__('It validates if the user has any of the roles provided through directive argument \'roles\'', 'component-model');
     }
     public function getSchemaDirectiveArgs(TypeResolverInterface $typeResolver): array
     {
         $translationAPI = TranslationAPIFacade::getInstance();
         return [
             [
-                SchemaDefinition::ARGNAME_NAME => 'role',
-                SchemaDefinition::ARGNAME_TYPE => SchemaDefinition::TYPE_STRING,
-                SchemaDefinition::ARGNAME_DESCRIPTION => $translationAPI->__('Role to validate if the logged-in user has', 'component-model'),
+                SchemaDefinition::ARGNAME_NAME => 'roles',
+                SchemaDefinition::ARGNAME_TYPE => TypeCastingHelpers::makeArray(SchemaDefinition::TYPE_STRING),
+                SchemaDefinition::ARGNAME_DESCRIPTION => $translationAPI->__('Roles to validate if the logged-in user has (any of them)', 'component-model'),
                 SchemaDefinition::ARGNAME_MANDATORY => true,
             ],
         ];
