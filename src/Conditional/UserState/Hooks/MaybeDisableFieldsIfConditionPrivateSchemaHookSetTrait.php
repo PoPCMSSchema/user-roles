@@ -33,6 +33,23 @@ trait MaybeDisableFieldsIfConditionPrivateSchemaHookSetTrait
      */
     protected function removeFieldName(TypeResolverInterface $typeResolver, FieldResolverInterface $fieldResolver, string $fieldName): bool
     {
+        // If it doesn't have the role/capability/loggedin, and it's the expected combination of typeResolver/fieldName
+        return
+            parent::removeFieldName($typeResolver, $fieldResolver, $fieldName) &&
+            $this->matchesFieldsToInvalidate($typeResolver, $fieldResolver, $fieldName);
+    }
+
+    /**
+     * Remove fields for the User type
+     *
+     * @param boolean $include
+     * @param TypeResolverInterface $typeResolver
+     * @param FieldResolverInterface $fieldResolver
+     * @param string $fieldName
+     * @return boolean
+     */
+    protected function matchesFieldsToInvalidate(TypeResolverInterface $typeResolver, FieldResolverInterface $fieldResolver, string $fieldName): bool
+    {
         return
             $typeResolver instanceof UserTypeResolver ||
             ($fieldName == 'roles' &&

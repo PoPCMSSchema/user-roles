@@ -28,10 +28,12 @@ abstract class AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveCapabilityPriv
      */
     protected function removeFieldName(TypeResolverInterface $typeResolver, FieldResolverInterface $fieldResolver, string $fieldName): bool
     {
+        $isUserLoggedIn = $this->isUserLoggedIn();
+
         $capability = $this->getCapability();
 
         // Check if the user does not have the required capability
-        return !UserRoleHelper::doesCurrentUserHaveCapability($capability);
+        return !$isUserLoggedIn || !UserRoleHelper::doesCurrentUserHaveCapability($capability);
     }
 
     /**

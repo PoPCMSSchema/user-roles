@@ -28,10 +28,12 @@ abstract class AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRolePrivateSch
      */
     protected function removeFieldName(TypeResolverInterface $typeResolver, FieldResolverInterface $fieldResolver, string $fieldName): bool
     {
+        $isUserLoggedIn = $this->isUserLoggedIn();
+
         $roleName = $this->getRoleName();
 
         // Check if the user does not have the required role
-        return !UserRoleHelper::doesCurrentUserHaveRole($roleName);
+        return !$isUserLoggedIn || !UserRoleHelper::doesCurrentUserHaveRole($roleName);
     }
 
     /**
