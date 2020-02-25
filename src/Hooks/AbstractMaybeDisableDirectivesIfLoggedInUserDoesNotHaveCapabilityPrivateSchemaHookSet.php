@@ -24,7 +24,7 @@ abstract class AbstractMaybeDisableDirectivesIfLoggedInUserDoesNotHaveCapability
      * @param string $directiveName
      * @return boolean
      */
-    protected function removeDirectiveNames(TypeResolverInterface $typeResolver, ?string $directiveName = null): bool
+    protected function removeDirectiveName(TypeResolverInterface $typeResolver, string $directiveName): bool
     {
         $capability = $this->getCapability();
 
