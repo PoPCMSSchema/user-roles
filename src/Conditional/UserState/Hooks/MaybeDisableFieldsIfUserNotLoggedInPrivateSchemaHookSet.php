@@ -1,10 +1,10 @@
 <?php
 namespace PoP\UserRoles\Conditional\UserState\Hooks;
 
-use PoP\UserState\Hooks\AbstractMaybeDisableFieldsIfUserNotLoggedInHookSet;
+use PoP\UserState\Hooks\AbstractMaybeDisableFieldsIfUserNotLoggedInPrivateSchemaHookSet;
 use PoP\UserRoles\Conditional\UserState\Environment;
 
-class MaybeDisableFieldsIfUserNotLoggedInHookSet extends AbstractMaybeDisableFieldsIfUserNotLoggedInHookSet
+class MaybeDisableFieldsIfUserNotLoggedInPrivateSchemaHookSet extends AbstractMaybeDisableFieldsIfUserNotLoggedInPrivateSchemaHookSet
 {
     use MaybeDisableFieldsIfConditionHookSetTrait;
 

@@ -4,18 +4,18 @@ namespace PoP\UserRoles\Hooks;
 use PoP\UserRoles\Helpers\UserRoleHelper;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\FieldResolvers\FieldResolverInterface;
-use PoP\UserState\Hooks\AbstractMaybeDisableFieldsIfUserNotLoggedInHookSet;
+use PoP\UserState\Hooks\AbstractMaybeDisableFieldsIfUserNotLoggedInPrivateSchemaHookSet;
 
-abstract class AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet extends AbstractMaybeDisableFieldsIfUserNotLoggedInHookSet
+abstract class AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveCapabilityPrivateSchemaHookSet extends AbstractMaybeDisableFieldsIfUserNotLoggedInPrivateSchemaHookSet
 {
     protected function enabled(): bool
     {
-        // If the user is not logged-in, then already disable
+        // If the user is not logged-in, then do not enable
         if (!parent::enabled()) {
             return false;
         }
 
-        return !is_null($this->getRoleName());
+        return !is_null($this->getCapability());
     }
 
     /**
@@ -28,10 +28,10 @@ abstract class AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet ex
      */
     protected function removeFieldNames(TypeResolverInterface $typeResolver, FieldResolverInterface $fieldResolver, string $fieldName): bool
     {
-        $roleName = $this->getRoleName();
+        $capability = $this->getCapability();
 
-        // Check if the user does not have the required role
-        return !UserRoleHelper::doesCurrentUserHaveRole($roleName);
+        // Check if the user does not have the required capability
+        return !UserRoleHelper::doesCurrentUserHaveCapability($capability);
     }
 
     /**
@@ -39,5 +39,5 @@ abstract class AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet ex
      *
      * @return string
      */
-    abstract protected function getRoleName(): ?string;
+    abstract protected function getCapability(): ?string;
 }

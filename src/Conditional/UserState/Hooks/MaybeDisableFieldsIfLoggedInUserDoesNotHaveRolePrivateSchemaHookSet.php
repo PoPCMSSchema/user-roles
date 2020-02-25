@@ -2,9 +2,9 @@
 namespace PoP\UserRoles\Conditional\UserState\Hooks;
 
 use PoP\UserRoles\Conditional\UserState\Environment;
-use PoP\UserRoles\Hooks\AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet;
+use PoP\UserRoles\Hooks\AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRolePrivateSchemaHookSet;
 
-class MaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet extends AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleHookSet
+class MaybeDisableFieldsIfLoggedInUserDoesNotHaveRolePrivateSchemaHookSet extends AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRolePrivateSchemaHookSet
 {
     use MaybeDisableFieldsIfConditionHookSetTrait;
 
