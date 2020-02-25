@@ -6,7 +6,7 @@ use PoP\ComponentModel\Facades\Schema\FieldQueryInterpreterFacade;
 use PoP\ComponentModel\TypeResolverDecorators\AbstractPublicSchemaTypeResolverDecorator;
 use PoP\UserRoles\Conditional\UserState\DirectiveResolvers\ValidateDoesLoggedInUserHaveCapabilityDirectiveResolver;
 
-abstract class AbstractValidateDoesLoggedInHaveCapabilityForDirectivesPublicSchemaTypeResolverDecorator extends AbstractPublicSchemaTypeResolverDecorator
+abstract class AbstractValidateDoesLoggedInUserHaveCapabilityForFieldsTypeResolverDecorator extends AbstractPublicSchemaTypeResolverDecorator
 {
     /**
      * By default, only the admin can see the roles from the users
@@ -14,9 +14,9 @@ abstract class AbstractValidateDoesLoggedInHaveCapabilityForDirectivesPublicSche
      * @param TypeResolverInterface $typeResolver
      * @return array
      */
-    public function getMandatoryDirectivesForDirectives(TypeResolverInterface $typeResolver): array
+    public function getMandatoryDirectivesForFields(TypeResolverInterface $typeResolver): array
     {
-        $mandatoryDirectivesForDirectives = [];
+        $mandatoryDirectivesForFields = [];
         if ($requiredCapability = $this->getCapability()) {
             $fieldQueryInterpreter = FieldQueryInterpreterFacade::getInstance();
             // This is the directive to attach
@@ -26,21 +26,14 @@ abstract class AbstractValidateDoesLoggedInHaveCapabilityForDirectivesPublicSche
                     'capability' => $requiredCapability,
                 ]
             );
-            if ($directiveNames = array_map(
-                function($directiveResolverClass) {
-                    return $directiveResolverClass::getDirectiveName();
-                },
-                $this->getDirectiveResolverClasses()
-            )) {
-                foreach ($directiveNames as $directiveName) {
-                    $mandatoryDirectivesForDirectives[$directiveName] = [
-                        $validateDoesLoggedInUserHaveRoleDirective,
-                    ];
-                }
+            foreach ($this->getFieldNames() as $fieldName) {
+                $mandatoryDirectivesForFields[$fieldName] = [
+                    $validateDoesLoggedInUserHaveRoleDirective,
+                ];
             }
         }
-        return $mandatoryDirectivesForDirectives;
+        return $mandatoryDirectivesForFields;
     }
     abstract protected function getCapability(): ?string;
-    abstract protected function getDirectiveResolverClasses(): array;
+    abstract protected function getFieldNames(): array;
 }

@@ -6,7 +6,7 @@ use PoP\ComponentModel\Facades\Schema\FieldQueryInterpreterFacade;
 use PoP\ComponentModel\TypeResolverDecorators\AbstractPublicSchemaTypeResolverDecorator;
 use PoP\UserRoles\Conditional\UserState\DirectiveResolvers\ValidateDoesLoggedInUserHaveRoleDirectiveResolver;
 
-abstract class AbstractValidateDoesLoggedInHaveRoleForFieldsTypeResolverDecorator extends AbstractPublicSchemaTypeResolverDecorator
+abstract class AbstractValidateDoesLoggedInUserHaveRoleForFieldsTypeResolverDecorator extends AbstractPublicSchemaTypeResolverDecorator
 {
     protected function onlyForPublicSchema(): bool
     {

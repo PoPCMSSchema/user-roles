@@ -5,9 +5,9 @@ use PoP\API\TypeResolvers\RootTypeResolver;
 use PoP\API\TypeResolvers\SiteTypeResolver;
 use PoP\UserRoles\Conditional\UserState\Environment;
 use PoP\Users\TypeResolvers\UserTypeResolver;
-use PoP\UserRoles\Conditional\UserState\TypeResolverDecorators\AbstractValidateDoesLoggedInHaveCapabilityForFieldsTypeResolverDecorator;
+use PoP\UserRoles\Conditional\UserState\TypeResolverDecorators\AbstractValidateDoesLoggedInUserHaveCapabilityForFieldsTypeResolverDecorator;
 
-class RolesValidateDoesLoggedInHaveCapabilityForFieldsTypeResolverDecorator extends AbstractValidateDoesLoggedInHaveCapabilityForFieldsTypeResolverDecorator
+class RolesValidateDoesLoggedInUserHaveCapabilityForFieldsTypeResolverDecorator extends AbstractValidateDoesLoggedInUserHaveCapabilityForFieldsTypeResolverDecorator
 {
     public static function getClassesToAttachTo(): array
     {
