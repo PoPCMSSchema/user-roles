@@ -5,7 +5,7 @@ use PoP\API\TypeResolvers\RootTypeResolver;
 use PoP\API\TypeResolvers\SiteTypeResolver;
 use PoP\Users\TypeResolvers\UserTypeResolver;
 
-trait RolesValidateConditionForFieldsTypeResolverDecoratorTrait
+trait RolesValidateConditionForFieldsPublicSchemaTypeResolverDecoratorTrait
 {
     public static function getClassesToAttachTo(): array
     {

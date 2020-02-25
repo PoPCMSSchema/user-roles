@@ -4,10 +4,14 @@ namespace PoP\UserRoles\Conditional\UserState\TypeResolverDecorators;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\Facades\Schema\FieldQueryInterpreterFacade;
 use PoP\ComponentModel\TypeResolverDecorators\AbstractPublicSchemaTypeResolverDecorator;
-use PoP\UserRoles\Conditional\UserState\DirectiveResolvers\ValidateDoesLoggedInUserHaveCapabilityDirectiveResolver;
+use PoP\UserRoles\Conditional\UserState\DirectiveResolvers\ValidateDoesLoggedInUserHaveRoleDirectiveResolver;
 
-abstract class AbstractValidateDoesLoggedInUserHaveCapabilityForFieldsTypeResolverDecorator extends AbstractPublicSchemaTypeResolverDecorator
+abstract class AbstractValidateDoesLoggedInUserHaveRoleForFieldsPublicSchemaTypeResolverDecorator extends AbstractPublicSchemaTypeResolverDecorator
 {
+    protected function onlyForPublicSchema(): bool
+    {
+        return true;
+    }
     /**
      * By default, only the admin can see the roles from the users
      *
@@ -17,13 +21,13 @@ abstract class AbstractValidateDoesLoggedInUserHaveCapabilityForFieldsTypeResolv
     public function getMandatoryDirectivesForFields(TypeResolverInterface $typeResolver): array
     {
         $mandatoryDirectivesForFields = [];
-        if ($requiredCapability = $this->getCapability()) {
+        if ($requiredRoleName = $this->getRoleName()) {
             $fieldQueryInterpreter = FieldQueryInterpreterFacade::getInstance();
             // This is the directive to attach
             $validateDoesLoggedInUserHaveRoleDirective = $fieldQueryInterpreter->getDirective(
-                ValidateDoesLoggedInUserHaveCapabilityDirectiveResolver::getDirectiveName(),
+                ValidateDoesLoggedInUserHaveRoleDirectiveResolver::getDirectiveName(),
                 [
-                    'capability' => $requiredCapability,
+                    'role' => $requiredRoleName,
                 ]
             );
             foreach ($this->getFieldNames() as $fieldName) {
@@ -34,6 +38,6 @@ abstract class AbstractValidateDoesLoggedInUserHaveCapabilityForFieldsTypeResolv
         }
         return $mandatoryDirectivesForFields;
     }
-    abstract protected function getCapability(): ?string;
+    abstract protected function getRoleName(): ?string;
     abstract protected function getFieldNames(): array;
 }

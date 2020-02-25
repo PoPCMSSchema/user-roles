@@ -6,7 +6,7 @@ use PoP\UserRoles\Conditional\UserState\Environment;
 
 class MaybeDisableFieldsIfUserNotLoggedInPrivateSchemaHookSet extends AbstractMaybeDisableFieldsIfUserNotLoggedInPrivateSchemaHookSet
 {
-    use MaybeDisableFieldsIfConditionHookSetTrait;
+    use MaybeDisableFieldsIfConditionPrivateSchemaHookSetTrait;
 
     protected function enabled(): bool
     {

@@ -7,7 +7,7 @@ use PoP\UserRoles\FieldResolvers\SiteRolesFieldResolver;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\FieldResolvers\FieldResolverInterface;
 
-trait MaybeDisableFieldsIfConditionHookSetTrait
+trait MaybeDisableFieldsIfConditionPrivateSchemaHookSetTrait
 {
     /**
      * Field names to remove

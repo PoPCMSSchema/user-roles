@@ -6,7 +6,7 @@ use PoP\UserRoles\Hooks\AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRoleP
 
 class MaybeDisableFieldsIfLoggedInUserDoesNotHaveRolePrivateSchemaHookSet extends AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveRolePrivateSchemaHookSet
 {
-    use MaybeDisableFieldsIfConditionHookSetTrait;
+    use MaybeDisableFieldsIfConditionPrivateSchemaHookSetTrait;
 
     protected function getRoleName(): ?string
     {

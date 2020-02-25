@@ -5,9 +5,9 @@ use PoP\UserRoles\Conditional\UserState\Environment;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\UserState\TypeResolverDecorators\AbstractValidateIsUserLoggedInForFieldsTypeResolverDecorator;
 
-class RolesValidateIsUserLoggedInForFieldsTypeResolverDecorator extends AbstractValidateIsUserLoggedInForFieldsTypeResolverDecorator
+class RolesValidateIsUserLoggedInForFieldsPublicSchemaTypeResolverDecorator extends AbstractValidateIsUserLoggedInForFieldsTypeResolverDecorator
 {
-    use RolesValidateConditionForFieldsTypeResolverDecoratorTrait;
+    use RolesValidateConditionForFieldsPublicSchemaTypeResolverDecoratorTrait;
 
     public function enabled(TypeResolverInterface $typeResolver): bool
     {
