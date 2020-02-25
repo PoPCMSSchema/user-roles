@@ -16,6 +16,16 @@ class UserRoleHelper
         return in_array($roleName, $userRoles);
     }
 
+    public static function doesCurrentUserHaveAnyRole(array $roleNames): bool
+    {
+        // Check if the user has the required role
+        $userRoleTypeDataResolver = UserRoleTypeDataResolverFacade::getInstance();
+        $userStateTypeDataResolverFacade = UserStateTypeDataResolverFacade::getInstance();
+        $userID = $userStateTypeDataResolverFacade->getCurrentUserID();
+        $userRoles = $userRoleTypeDataResolver->getUserRoles($userID);
+        return !empty(array_intersect($roleNames, $userRoles));
+    }
+
     public static function doesCurrentUserHaveCapability(string $capability): bool
     {
         // Check if the user has the required role
@@ -24,5 +34,15 @@ class UserRoleHelper
         $userID = $userStateTypeDataResolverFacade->getCurrentUserID();
         $userCapabilities = $userRoleTypeDataResolver->getUserCapabilities($userID);
         return in_array($capability, $userCapabilities);
+    }
+
+    public static function doesCurrentUserHaveAnyCapability(array $capabilities): bool
+    {
+        // Check if the user has the required role
+        $userRoleTypeDataResolver = UserRoleTypeDataResolverFacade::getInstance();
+        $userStateTypeDataResolverFacade = UserStateTypeDataResolverFacade::getInstance();
+        $userID = $userStateTypeDataResolverFacade->getCurrentUserID();
+        $userCapabilities = $userRoleTypeDataResolver->getUserCapabilities($userID);
+        return !empty(array_intersect($capabilities, $userCapabilities));
     }
 }

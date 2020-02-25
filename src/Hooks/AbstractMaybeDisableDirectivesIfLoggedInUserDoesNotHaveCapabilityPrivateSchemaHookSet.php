@@ -15,7 +15,7 @@ abstract class AbstractMaybeDisableDirectivesIfLoggedInUserDoesNotHaveCapability
             return false;
         }
 
-        return !is_null($this->getCapability());
+        return !empty($this->getCapabilities());
     }
 
     /**
@@ -27,10 +27,10 @@ abstract class AbstractMaybeDisableDirectivesIfLoggedInUserDoesNotHaveCapability
      */
     protected function removeDirectiveName(TypeResolverInterface $typeResolver, DirectiveResolverInterface $directiveResolver, string $directiveName): bool
     {
-        $capability = $this->getCapability();
+        $capabilities = $this->getCapabilities();
 
-        // Check if the user does not have the required role
-        return !UserRoleHelper::doesCurrentUserHaveCapability($capability);
+        // Check if the user does not have any of the required capabilities
+        return !UserRoleHelper::doesCurrentUserHaveAnyCapability($capabilities);
     }
 
     /**
@@ -38,5 +38,5 @@ abstract class AbstractMaybeDisableDirectivesIfLoggedInUserDoesNotHaveCapability
      *
      * @return string
      */
-    abstract protected function getCapability(): ?string;
+    abstract protected function getCapabilities(): array;
 }

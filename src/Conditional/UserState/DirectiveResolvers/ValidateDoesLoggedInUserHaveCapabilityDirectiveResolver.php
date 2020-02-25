@@ -3,6 +3,7 @@ namespace PoP\UserRoles\Conditional\UserState\DirectiveResolvers;
 
 use PoP\ComponentModel\Engine_Vars;
 use PoP\ComponentModel\Schema\SchemaDefinition;
+use PoP\ComponentModel\Schema\TypeCastingHelpers;
 use PoP\Translation\Facades\TranslationAPIFacade;
 use PoP\UserRoles\Facades\UserRoleTypeDataResolverFacade;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
@@ -23,20 +24,23 @@ class ValidateDoesLoggedInUserHaveCapabilityDirectiveResolver extends AbstractVa
             return true;
         }
 
-        $capability = $this->directiveArgsForSchema['capability'];
+        $capabilities = $this->directiveArgsForSchema['capabilities'];
         $userRoleTypeDataResolver = UserRoleTypeDataResolverFacade::getInstance();
         $userID = $vars['global-userstate']['current-user-id'];
         $userCapabilities = $userRoleTypeDataResolver->getUserCapabilities($userID);
-        return in_array($capability, $userCapabilities);
+        return !empty(array_intersect($capabilities, $userCapabilities));
     }
 
     protected function getValidationFailedMessage(TypeResolverInterface $typeResolver, array $failedDataFields): string
     {
-        $capability = $this->directiveArgsForSchema['capability'];
+        $capabilities = $this->directiveArgsForSchema['capabilities'];
         $translationAPI = TranslationAPIFacade::getInstance();
         return sprintf(
-            $translationAPI->__('You must have capability \'%s\' to access field(s) \'%s\'', 'user-state'),
-            $capability,
+            $translationAPI->__('You must have any capability from among \'%s\' to access field(s) \'%s\'', 'user-state'),
+            implode(
+                $translationAPI->__('\', \''),
+                $capabilities
+            ),
             implode(
                 $translationAPI->__('\', \''),
                 $failedDataFields
@@ -47,16 +51,16 @@ class ValidateDoesLoggedInUserHaveCapabilityDirectiveResolver extends AbstractVa
     public function getSchemaDirectiveDescription(TypeResolverInterface $typeResolver): ?string
     {
         $translationAPI = TranslationAPIFacade::getInstance();
-        return $translationAPI->__('It validates if the user has the capability provided through directive argument \'capability\'', 'component-model');
+        return $translationAPI->__('It validates if the user has any capability provided through directive argument \'capabilities\'', 'component-model');
     }
     public function getSchemaDirectiveArgs(TypeResolverInterface $typeResolver): array
     {
         $translationAPI = TranslationAPIFacade::getInstance();
         return [
             [
-                SchemaDefinition::ARGNAME_NAME => 'capability',
-                SchemaDefinition::ARGNAME_TYPE => SchemaDefinition::TYPE_STRING,
-                SchemaDefinition::ARGNAME_DESCRIPTION => $translationAPI->__('Capability to validate if the logged-in user has', 'component-model'),
+                SchemaDefinition::ARGNAME_NAME => 'capabilities',
+                SchemaDefinition::ARGNAME_TYPE => TypeCastingHelpers::makeArray(SchemaDefinition::TYPE_STRING),
+                SchemaDefinition::ARGNAME_DESCRIPTION => $translationAPI->__('Capabilities to validate if the logged-in user has (any of them)', 'component-model'),
                 SchemaDefinition::ARGNAME_MANDATORY => true,
             ],
         ];

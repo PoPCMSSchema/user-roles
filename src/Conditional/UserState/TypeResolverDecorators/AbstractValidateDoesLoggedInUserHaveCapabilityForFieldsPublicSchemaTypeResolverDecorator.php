@@ -17,13 +17,13 @@ abstract class AbstractValidateDoesLoggedInUserHaveCapabilityForFieldsPublicSche
     public function getMandatoryDirectivesForFields(TypeResolverInterface $typeResolver): array
     {
         $mandatoryDirectivesForFields = [];
-        if ($requiredCapability = $this->getCapability()) {
+        if ($capabilities = $this->getCapabilities()) {
             $fieldQueryInterpreter = FieldQueryInterpreterFacade::getInstance();
             // This is the directive to attach
             $validateDoesLoggedInUserHaveRoleDirective = $fieldQueryInterpreter->getDirective(
                 ValidateDoesLoggedInUserHaveCapabilityDirectiveResolver::getDirectiveName(),
                 [
-                    'capability' => $requiredCapability,
+                    'capabilities' => $capabilities,
                 ]
             );
             foreach ($this->getFieldNames() as $fieldName) {
@@ -34,6 +34,6 @@ abstract class AbstractValidateDoesLoggedInUserHaveCapabilityForFieldsPublicSche
         }
         return $mandatoryDirectivesForFields;
     }
-    abstract protected function getCapability(): ?string;
+    abstract protected function getCapabilities(): array;
     abstract protected function getFieldNames(): array;
 }

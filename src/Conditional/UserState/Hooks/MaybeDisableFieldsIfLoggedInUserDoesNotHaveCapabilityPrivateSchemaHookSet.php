@@ -8,8 +8,11 @@ class MaybeDisableFieldsIfLoggedInUserDoesNotHaveCapabilityPrivateSchemaHookSet 
 {
     use MaybeDisableFieldsIfConditionPrivateSchemaHookSetTrait;
 
-    protected function getCapability(): ?string
+    protected function getCapabilities(): array
     {
-        return Environment::capabilityLoggedInUserMustHaveToAccessRolesFields();
+        if ($capability = Environment::capabilityLoggedInUserMustHaveToAccessRolesFields()) {
+            return [$capability];
+        }
+        return [];
     }
 }

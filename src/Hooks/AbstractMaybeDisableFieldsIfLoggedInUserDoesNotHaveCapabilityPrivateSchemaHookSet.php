@@ -15,7 +15,7 @@ abstract class AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveCapabilityPriv
             return false;
         }
 
-        return !is_null($this->getCapability());
+        return !empty($this->getCapabilities());
     }
 
     /**
@@ -30,10 +30,10 @@ abstract class AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveCapabilityPriv
     {
         $isUserLoggedIn = $this->isUserLoggedIn();
 
-        $capability = $this->getCapability();
+        $capabilities = $this->getCapabilities();
 
-        // Check if the user does not have the required capability
-        return !$isUserLoggedIn || !UserRoleHelper::doesCurrentUserHaveCapability($capability);
+        // Check if the user does not have the required ies
+        return !$isUserLoggedIn || !UserRoleHelper::doesCurrentUserHaveAnyCapability($capabilities);
     }
 
     /**
@@ -41,5 +41,5 @@ abstract class AbstractMaybeDisableFieldsIfLoggedInUserDoesNotHaveCapabilityPriv
      *
      * @return string
      */
-    abstract protected function getCapability(): ?string;
+    abstract protected function getCapabilities(): array;
 }
