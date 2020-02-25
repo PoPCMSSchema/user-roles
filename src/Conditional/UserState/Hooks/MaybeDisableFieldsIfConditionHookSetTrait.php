@@ -7,7 +7,7 @@ use PoP\UserRoles\FieldResolvers\SiteRolesFieldResolver;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\FieldResolvers\FieldResolverInterface;
 
-trait MaybeDisableFieldsIfLoggedInUserDoesNotHaveItemHookSetTrait
+trait MaybeDisableFieldsIfConditionHookSetTrait
 {
     /**
      * Field names to remove

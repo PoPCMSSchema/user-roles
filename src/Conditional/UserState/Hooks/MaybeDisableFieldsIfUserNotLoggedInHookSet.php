@@ -6,7 +6,7 @@ use PoP\UserRoles\Conditional\UserState\Environment;
 
 class MaybeDisableFieldsIfUserNotLoggedInHookSet extends AbstractMaybeDisableFieldsIfUserNotLoggedInHookSet
 {
-    use MaybeDisableFieldsIfLoggedInUserDoesNotHaveItemHookSetTrait;
+    use MaybeDisableFieldsIfConditionHookSetTrait;
 
     protected function enabled(): bool
     {
