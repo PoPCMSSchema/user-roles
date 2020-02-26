@@ -10,8 +10,8 @@ class UserRoleHelper
     {
         // Check if the user has the required role
         $userRoleTypeDataResolver = UserRoleTypeDataResolverFacade::getInstance();
-        $userStateTypeDataResolverFacade = UserStateTypeDataResolverFacade::getInstance();
-        $userID = $userStateTypeDataResolverFacade->getCurrentUserID();
+        $userStateTypeDataResolver = UserStateTypeDataResolverFacade::getInstance();
+        $userID = $userStateTypeDataResolver->getCurrentUserID();
         $userRoles = $userRoleTypeDataResolver->getUserRoles($userID);
         return in_array($roleName, $userRoles);
     }
@@ -20,8 +20,8 @@ class UserRoleHelper
     {
         // Check if the user has the required role
         $userRoleTypeDataResolver = UserRoleTypeDataResolverFacade::getInstance();
-        $userStateTypeDataResolverFacade = UserStateTypeDataResolverFacade::getInstance();
-        $userID = $userStateTypeDataResolverFacade->getCurrentUserID();
+        $userStateTypeDataResolver = UserStateTypeDataResolverFacade::getInstance();
+        $userID = $userStateTypeDataResolver->getCurrentUserID();
         $userRoles = $userRoleTypeDataResolver->getUserRoles($userID);
         return !empty(array_intersect($roleNames, $userRoles));
     }
@@ -30,8 +30,8 @@ class UserRoleHelper
     {
         // Check if the user has the required role
         $userRoleTypeDataResolver = UserRoleTypeDataResolverFacade::getInstance();
-        $userStateTypeDataResolverFacade = UserStateTypeDataResolverFacade::getInstance();
-        $userID = $userStateTypeDataResolverFacade->getCurrentUserID();
+        $userStateTypeDataResolver = UserStateTypeDataResolverFacade::getInstance();
+        $userID = $userStateTypeDataResolver->getCurrentUserID();
         $userCapabilities = $userRoleTypeDataResolver->getUserCapabilities($userID);
         return in_array($capability, $userCapabilities);
     }
@@ -40,8 +40,8 @@ class UserRoleHelper
     {
         // Check if the user has the required role
         $userRoleTypeDataResolver = UserRoleTypeDataResolverFacade::getInstance();
-        $userStateTypeDataResolverFacade = UserStateTypeDataResolverFacade::getInstance();
-        $userID = $userStateTypeDataResolverFacade->getCurrentUserID();
+        $userStateTypeDataResolver = UserStateTypeDataResolverFacade::getInstance();
+        $userID = $userStateTypeDataResolver->getCurrentUserID();
         $userCapabilities = $userRoleTypeDataResolver->getUserCapabilities($userID);
         return !empty(array_intersect($capabilities, $userCapabilities));
     }
