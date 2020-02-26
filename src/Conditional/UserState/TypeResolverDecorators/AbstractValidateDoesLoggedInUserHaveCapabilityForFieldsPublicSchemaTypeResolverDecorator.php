@@ -20,7 +20,7 @@ abstract class AbstractValidateDoesLoggedInUserHaveCapabilityForFieldsPublicSche
         if ($capabilities = $this->getCapabilities()) {
             $fieldQueryInterpreter = FieldQueryInterpreterFacade::getInstance();
             // This is the directive to attach
-            $validateDoesLoggedInUserHaveAnyRoleDirective = $fieldQueryInterpreter->getDirective(
+            $validateDoesLoggedInUserHaveAnyCapabilityDirective = $fieldQueryInterpreter->getDirective(
                 ValidateDoesLoggedInUserHaveAnyCapabilityDirectiveResolver::getDirectiveName(),
                 [
                     'capabilities' => $capabilities,
@@ -28,7 +28,7 @@ abstract class AbstractValidateDoesLoggedInUserHaveCapabilityForFieldsPublicSche
             );
             foreach ($this->getFieldNames() as $fieldName) {
                 $mandatoryDirectivesForFields[$fieldName] = [
-                    $validateDoesLoggedInUserHaveAnyRoleDirective,
+                    $validateDoesLoggedInUserHaveAnyCapabilityDirective,
                 ];
             }
         }
