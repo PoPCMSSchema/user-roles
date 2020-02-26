@@ -9,9 +9,9 @@ use PoP\UserRoles\Facades\UserRoleTypeDataResolverFacade;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\DirectiveResolvers\AbstractValidateConditionDirectiveResolver;
 
-class ValidateDoesLoggedInUserHaveCapabilityDirectiveResolver extends AbstractValidateConditionDirectiveResolver
+class ValidateDoesLoggedInUserHaveAnyRoleDirectiveResolver extends AbstractValidateConditionDirectiveResolver
 {
-    const DIRECTIVE_NAME = 'validateDoesLoggedInUserHaveCapability';
+    const DIRECTIVE_NAME = 'validateDoesLoggedInUserHaveAnyRole';
     public static function getDirectiveName(): string {
         return self::DIRECTIVE_NAME;
     }
@@ -24,22 +24,22 @@ class ValidateDoesLoggedInUserHaveCapabilityDirectiveResolver extends AbstractVa
             return true;
         }
 
-        $capabilities = $this->directiveArgsForSchema['capabilities'];
+        $roles = $this->directiveArgsForSchema['roles'];
         $userRoleTypeDataResolver = UserRoleTypeDataResolverFacade::getInstance();
         $userID = $vars['global-userstate']['current-user-id'];
-        $userCapabilities = $userRoleTypeDataResolver->getUserCapabilities($userID);
-        return !empty(array_intersect($capabilities, $userCapabilities));
+        $userRoles = $userRoleTypeDataResolver->getUserRoles($userID);
+        return !empty(array_intersect($roles, $userRoles));
     }
 
     protected function getValidationFailedMessage(TypeResolverInterface $typeResolver, array $failedDataFields): string
     {
-        $capabilities = $this->directiveArgsForSchema['capabilities'];
+        $roles = $this->directiveArgsForSchema['roles'];
         $translationAPI = TranslationAPIFacade::getInstance();
         return sprintf(
-            $translationAPI->__('You must have any capability from among \'%s\' to access field(s) \'%s\'', 'user-state'),
+            $translationAPI->__('You must have any role from \'%s\' to access field(s) \'%s\'', 'user-state'),
             implode(
                 $translationAPI->__('\', \''),
-                $capabilities
+                $roles
             ),
             implode(
                 $translationAPI->__('\', \''),
@@ -51,16 +51,16 @@ class ValidateDoesLoggedInUserHaveCapabilityDirectiveResolver extends AbstractVa
     public function getSchemaDirectiveDescription(TypeResolverInterface $typeResolver): ?string
     {
         $translationAPI = TranslationAPIFacade::getInstance();
-        return $translationAPI->__('It validates if the user has any capability provided through directive argument \'capabilities\'', 'component-model');
+        return $translationAPI->__('It validates if the user has any of the roles provided through directive argument \'roles\'', 'component-model');
     }
     public function getSchemaDirectiveArgs(TypeResolverInterface $typeResolver): array
     {
         $translationAPI = TranslationAPIFacade::getInstance();
         return [
             [
-                SchemaDefinition::ARGNAME_NAME => 'capabilities',
+                SchemaDefinition::ARGNAME_NAME => 'roles',
                 SchemaDefinition::ARGNAME_TYPE => TypeCastingHelpers::makeArray(SchemaDefinition::TYPE_STRING),
-                SchemaDefinition::ARGNAME_DESCRIPTION => $translationAPI->__('Capabilities to validate if the logged-in user has (any of them)', 'component-model'),
+                SchemaDefinition::ARGNAME_DESCRIPTION => $translationAPI->__('Roles to validate if the logged-in user has (any of them)', 'component-model'),
                 SchemaDefinition::ARGNAME_MANDATORY => true,
             ],
         ];

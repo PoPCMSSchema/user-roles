@@ -4,7 +4,7 @@ namespace PoP\UserRoles\Conditional\UserState\TypeResolverDecorators;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\Facades\Schema\FieldQueryInterpreterFacade;
 use PoP\AccessControl\TypeResolverDecorators\AbstractPublicSchemaTypeResolverDecorator;
-use PoP\UserRoles\Conditional\UserState\DirectiveResolvers\ValidateDoesLoggedInUserHaveCapabilityDirectiveResolver;
+use PoP\UserRoles\Conditional\UserState\DirectiveResolvers\ValidateDoesLoggedInUserHaveAnyCapabilityDirectiveResolver;
 
 abstract class AbstractValidateDoesLoggedInUserHaveCapabilityForDirectivesPublicSchemaTypeResolverDecorator extends AbstractPublicSchemaTypeResolverDecorator
 {
@@ -20,8 +20,8 @@ abstract class AbstractValidateDoesLoggedInUserHaveCapabilityForDirectivesPublic
         if ($capabilities = $this->getCapabilities()) {
             $fieldQueryInterpreter = FieldQueryInterpreterFacade::getInstance();
             // This is the directive to attach
-            $validateDoesLoggedInUserHaveCapabilityDirective = $fieldQueryInterpreter->getDirective(
-                ValidateDoesLoggedInUserHaveCapabilityDirectiveResolver::getDirectiveName(),
+            $validateDoesLoggedInUserHaveAnyCapabilityDirective = $fieldQueryInterpreter->getDirective(
+                ValidateDoesLoggedInUserHaveAnyCapabilityDirectiveResolver::getDirectiveName(),
                 [
                     'capabilities' => $capabilities,
                 ]
@@ -34,7 +34,7 @@ abstract class AbstractValidateDoesLoggedInUserHaveCapabilityForDirectivesPublic
             )) {
                 foreach ($directiveNames as $directiveName) {
                     $mandatoryDirectivesForDirectives[$directiveName] = [
-                        $validateDoesLoggedInUserHaveCapabilityDirective,
+                        $validateDoesLoggedInUserHaveAnyCapabilityDirective,
                     ];
                 }
             }
