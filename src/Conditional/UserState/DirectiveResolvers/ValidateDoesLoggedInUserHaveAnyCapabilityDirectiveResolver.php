@@ -35,8 +35,11 @@ class ValidateDoesLoggedInUserHaveAnyCapabilityDirectiveResolver extends Abstrac
     {
         $capabilities = $this->directiveArgsForSchema['capabilities'];
         $translationAPI = TranslationAPIFacade::getInstance();
+        $message = count($capabilities) == 1 ?
+            $translationAPI->__('You must have capability \'%s\' to access field(s) \'%s\'', 'user-roles') :
+            $translationAPI->__('You must have any capability from among \'%s\' to access field(s) \'%s\'', 'user-roles');
         return sprintf(
-            $translationAPI->__('You must have any capability from among \'%s\' to access field(s) \'%s\'', 'user-state'),
+            $message,
             implode(
                 $translationAPI->__('\', \''),
                 $capabilities
