@@ -16,6 +16,12 @@ interface UserRoleTypeDataResolverInterface {
      */
     public function getRoleNames(): array;
     /**
+     * All available capabilities
+     *
+     * @return array
+     */
+    public function getCapabilities(): array;
+    /**
      * User roles
      *
      * @param [type] $userObjectOrID
