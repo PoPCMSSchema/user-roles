@@ -1,7 +1,7 @@
 <?php
 namespace PoP\UserRoles\FieldResolvers;
 
-use PoP\API\TypeResolvers\RootTypeResolver;
+use PoP\Engine\TypeResolvers\RootTypeResolver;
 use PoP\UserRoles\FieldResolvers\RolesFieldResolverTrait;
 use PoP\ComponentModel\FieldResolvers\AbstractDBDataFieldResolver;
 
