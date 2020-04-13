@@ -1,7 +1,8 @@
 <?php
 namespace PoP\UserRoles\TypeDataResolvers;
 
-interface UserRoleTypeDataResolverInterface {
+interface UserRoleTypeDataResolverInterface
+{
 
     /**
      * Admin role name

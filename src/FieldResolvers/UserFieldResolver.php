@@ -21,16 +21,16 @@ class UserFieldResolver extends AbstractDBDataFieldResolver
     public static function getFieldNamesToResolve(): array
     {
         return [
-			'roles',
-			'capabilities',
+            'roles',
+            'capabilities',
         ];
     }
 
     public function getSchemaFieldType(TypeResolverInterface $typeResolver, string $fieldName): ?string
     {
         $types = [
-			'roles' => TypeCastingHelpers::makeArray(SchemaDefinition::TYPE_STRING),
-			'capabilities' => TypeCastingHelpers::makeArray(SchemaDefinition::TYPE_STRING),
+            'roles' => TypeCastingHelpers::makeArray(SchemaDefinition::TYPE_STRING),
+            'capabilities' => TypeCastingHelpers::makeArray(SchemaDefinition::TYPE_STRING),
         ];
         return $types[$fieldName] ?? parent::getSchemaFieldType($typeResolver, $fieldName);
     }
@@ -39,8 +39,8 @@ class UserFieldResolver extends AbstractDBDataFieldResolver
     {
         $translationAPI = TranslationAPIFacade::getInstance();
         $descriptions = [
-			'roles' => $translationAPI->__('User roles', 'user-roles'),
-			'capabilities' => $translationAPI->__('User capabilities', 'user-roles'),
+            'roles' => $translationAPI->__('User roles', 'user-roles'),
+            'capabilities' => $translationAPI->__('User capabilities', 'user-roles'),
         ];
         return $descriptions[$fieldName] ?? parent::getSchemaFieldDescription($typeResolver, $fieldName);
     }
