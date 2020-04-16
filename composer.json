@@ -19,7 +19,7 @@
     "prefer-stable": true,
     "require": {
         "php" : "~7.1",
-        "getpop/users": "~0.1"
+        "getpop/users": "dev-master"
     },
     "require-dev": {
         "phpstan/phpstan": "^0.12",
