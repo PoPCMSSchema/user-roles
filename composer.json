@@ -29,10 +29,7 @@
     "autoload": {
         "psr-4": {
             "PoP\\UserRoles\\": "src"
-        },
-        "files": [
-            "initialize.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
