@@ -20,12 +20,13 @@ Via Composer
 composer require getpop/user-roles
 ```
 
-<!--
 ## Usage
 
+Initialize the component:
+
 ``` php
+\PoP\UserRoles\Component::initialize();
 ```
--->
 
 ## Standards
 
