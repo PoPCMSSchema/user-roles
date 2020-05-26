@@ -25,7 +25,9 @@ composer require getpop/user-roles
 Initialize the component:
 
 ``` php
-\PoP\UserRoles\Component::initialize();
+\PoP\Root\ComponentLoader::initializeComponents([
+    \PoP\UserRoles\Component::class,
+]);
 ```
 
 ## Standards
