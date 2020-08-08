@@ -1,4 +1,4 @@
 services:
-    PoP\UserRoles\FieldResolvers\:
+    PoPSchema\UserRoles\FieldResolvers\:
         resource: '../src/FieldResolvers/*'
         public: true

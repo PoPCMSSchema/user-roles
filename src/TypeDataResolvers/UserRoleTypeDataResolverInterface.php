@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PoP\UserRoles\TypeDataResolvers;
+namespace PoPSchema\UserRoles\TypeDataResolvers;
 
 interface UserRoleTypeDataResolverInterface
 {

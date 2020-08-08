@@ -1,12 +1,12 @@
 {
-    "name": "getpop/user-roles",
+    "name": "pop-schema/user-roles",
     "type": "library",
     "description": "Adds support for user roles",
     "keywords": [
         "PoP",
         "user-roles"
     ],
-    "homepage": "https://github.com/getpop/user-roles",
+    "homepage": "https://github.com/pop-schema/user-roles",
     "license": "MIT",
     "authors": [
         {
@@ -19,7 +19,7 @@
     "prefer-stable": true,
     "require": {
         "php": "~7.2",
-        "getpop/users": "dev-master"
+        "pop-schema/users": "dev-master"
     },
     "require-dev": {
         "phpstan/phpstan": "^0.12",
@@ -28,12 +28,12 @@
     },
     "autoload": {
         "psr-4": {
-            "PoP\\UserRoles\\": "src"
+            "PoPSchema\\UserRoles\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PoP\\UserRoles\\": "tests"
+            "PoPSchema\\UserRoles\\": "tests"
         }
     },
     "scripts": {

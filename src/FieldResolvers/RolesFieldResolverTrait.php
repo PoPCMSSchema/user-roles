@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace PoP\UserRoles\FieldResolvers;
+namespace PoPSchema\UserRoles\FieldResolvers;
 
 use PoP\ComponentModel\Schema\SchemaDefinition;
 use PoP\ComponentModel\Schema\TypeCastingHelpers;
 use PoP\Translation\Facades\TranslationAPIFacade;
-use PoP\UserRoles\Facades\UserRoleTypeDataResolverFacade;
+use PoPSchema\UserRoles\Facades\UserRoleTypeDataResolverFacade;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 
 trait RolesFieldResolverTrait

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PoP\UserRoles\Facades;
+namespace PoPSchema\UserRoles\Facades;
 
-use PoP\UserRoles\TypeDataResolvers\UserRoleTypeDataResolverInterface;
+use PoPSchema\UserRoles\TypeDataResolvers\UserRoleTypeDataResolverInterface;
 use PoP\Root\Container\ContainerBuilderFactory;
 
 class UserRoleTypeDataResolverFacade

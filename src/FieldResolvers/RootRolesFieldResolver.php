@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace PoP\UserRoles\FieldResolvers;
+namespace PoPSchema\UserRoles\FieldResolvers;
 
 use PoP\Engine\TypeResolvers\RootTypeResolver;
-use PoP\UserRoles\FieldResolvers\RolesFieldResolverTrait;
+use PoPSchema\UserRoles\FieldResolvers\RolesFieldResolverTrait;
 use PoP\ComponentModel\FieldResolvers\AbstractDBDataFieldResolver;
 
 class RootRolesFieldResolver extends AbstractDBDataFieldResolver

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PoP\UserRoles;
+namespace PoPSchema\UserRoles;
 
 use PoP\Root\Component\AbstractComponent;
 use PoP\Root\Component\YAMLServicesTrait;
@@ -19,7 +19,7 @@ class Component extends AbstractComponent
     public static function getDependedComponentClasses(): array
     {
         return [
-            \PoP\Users\Component::class,
+            \PoPSchema\Users\Component::class,
         ];
     }
 
