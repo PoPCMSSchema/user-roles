@@ -11,6 +11,10 @@ class UserRoleTypeDataResolverFacade
 {
     public static function getInstance(): UserRoleTypeDataResolverInterface
     {
-        return ContainerBuilderFactory::getInstance()->get('user_role_type_data_resolver');
+        /**
+         * @var UserRoleTypeDataResolverInterface
+         */
+        $service = ContainerBuilderFactory::getInstance()->get('user_role_type_data_resolver');
+        return $service;
     }
 }
