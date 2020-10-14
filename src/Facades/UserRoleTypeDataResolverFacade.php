@@ -14,7 +14,7 @@ class UserRoleTypeDataResolverFacade
         /**
          * @var UserRoleTypeDataResolverInterface
          */
-        $service = ContainerBuilderFactory::getInstance()->get('user_role_type_data_resolver');
+        $service = ContainerBuilderFactory::getInstance()->get(UserRoleTypeDataResolverInterface::class);
         return $service;
     }
 }
