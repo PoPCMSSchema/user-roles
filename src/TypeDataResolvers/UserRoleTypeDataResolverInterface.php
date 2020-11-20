@@ -6,7 +6,6 @@ namespace PoPSchema\UserRoles\TypeDataResolvers;
 
 interface UserRoleTypeDataResolverInterface
 {
-
     /**
      * Admin role name
      *
@@ -39,4 +38,7 @@ interface UserRoleTypeDataResolverInterface
      * @return array
      */
     public function getUserCapabilities($userObjectOrID): array;
+    public function getTheUserRole($userObjectOrID);
+    public function userCan($userObjectOrID, $capability);
+    public function hasRole($userObjectOrID, $role);
 }
