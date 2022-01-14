@@ -10,7 +10,7 @@ use PoP\ComponentModel\TypeResolvers\InputObjectType\HookNames;
 use PoP\ComponentModel\TypeResolvers\InputObjectType\InputObjectTypeResolverInterface;
 use PoP\ComponentModel\TypeResolvers\InputTypeResolverInterface;
 use PoP\ComponentModel\TypeResolvers\ScalarType\StringScalarTypeResolver;
-use PoP\BasicService\AbstractHookSet;
+use PoP\Root\Hooks\AbstractHookSet;
 use PoPSchema\UserRoles\Component;
 use PoPSchema\UserRoles\ComponentConfiguration;
 use PoPSchema\UserRoles\FilterInputProcessors\FilterInputProcessor;
@@ -31,31 +31,31 @@ class InputObjectTypeHookSet extends AbstractHookSet
 
     protected function init(): void
     {
-        $this->getHooksAPI()->addFilter(
+        App::addFilter(
             HookNames::INPUT_FIELD_NAME_TYPE_RESOLVERS,
             [$this, 'getInputFieldNameTypeResolvers'],
             10,
             2
         );
-        $this->getHooksAPI()->addFilter(
+        App::addFilter(
             HookNames::INPUT_FIELD_DESCRIPTION,
             [$this, 'getInputFieldDescription'],
             10,
             3
         );
-        $this->getHooksAPI()->addFilter(
+        App::addFilter(
             HookNames::ADMIN_INPUT_FIELD_NAMES,
             [$this, 'getAdminInputFieldNames'],
             10,
             2
         );
-        $this->getHooksAPI()->addFilter(
+        App::addFilter(
             HookNames::INPUT_FIELD_TYPE_MODIFIERS,
             [$this, 'getInputFieldTypeModifiers'],
             10,
             3
         );
-        $this->getHooksAPI()->addFilter(
+        App::addFilter(
             HookNames::INPUT_FIELD_FILTER_INPUT,
             [$this, 'getInputFieldFilterInput'],
             10,

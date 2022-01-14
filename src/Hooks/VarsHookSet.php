@@ -6,7 +6,7 @@ namespace PoPSchema\UserRoles\Hooks;
 
 use PoP\Root\App;
 use PoP\ComponentModel\ModelInstance\ModelInstance;
-use PoP\BasicService\AbstractHookSet;
+use PoP\Root\Hooks\AbstractHookSet;
 use PoPSchema\UserRoles\Constants\ModelInstanceComponentTypes;
 use PoPSchema\UserRoles\TypeAPIs\UserRoleTypeAPIInterface;
 use PoPSchema\Users\Routing\RouteNatures;
@@ -26,7 +26,7 @@ class VarsHookSet extends AbstractHookSet
 
     protected function init(): void
     {
-        $this->getHooksAPI()->addFilter(
+        App::addFilter(
             ModelInstance::HOOK_COMPONENTS_RESULT,
             array($this, 'getModelInstanceComponentsFromAppState')
         );
@@ -38,7 +38,7 @@ class VarsHookSet extends AbstractHookSet
             case RouteNatures::USER:
                 $user_id = App::getState(['routing', 'queried-object-id']);
                 // Author: it may depend on its role
-                $component_types = $this->getHooksAPI()->applyFilters(
+                $component_types = App::applyFilters(
                     '\PoP\ComponentModel\ModelInstanceProcessor_Utils:components_from_vars:type:userrole',
                     array(
                         ModelInstanceComponentTypes::USER_ROLE,
