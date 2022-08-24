@@ -21,6 +21,7 @@ class VarsHookSet extends AbstractHookSet
     }
     final protected function getUserRoleTypeAPI(): UserRoleTypeAPIInterface
     {
+        /** @var UserRoleTypeAPIInterface */
         return $this->userRoleTypeAPI ??= $this->instanceManager->getInstance(UserRoleTypeAPIInterface::class);
     }
 
@@ -32,6 +33,10 @@ class VarsHookSet extends AbstractHookSet
         );
     }
 
+    /**
+     * @return string[]
+     * @param string[] $elements
+     */
     public function getModelInstanceElementsFromAppState(array $elements): array
     {
         switch (App::getState('nature')) {
