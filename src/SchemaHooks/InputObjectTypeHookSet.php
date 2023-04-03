@@ -67,7 +67,7 @@ class InputObjectTypeHookSet extends AbstractHookSet
             3
         );
         App::addFilter(
-            HookNames::ADMIN_INPUT_FIELD_NAMES,
+            HookNames::SENSITIVE_INPUT_FIELD_NAMES,
             $this->getSensitiveInputFieldNames(...),
             10,
             2
@@ -107,23 +107,23 @@ class InputObjectTypeHookSet extends AbstractHookSet
     }
 
     /**
-     * @param string[] $adminInputFieldNames
+     * @param string[] $sensitiveInputFieldNames
      * @return string[]
      */
     public function getSensitiveInputFieldNames(
-        array $adminInputFieldNames,
+        array $sensitiveInputFieldNames,
         InputObjectTypeResolverInterface $inputObjectTypeResolver,
     ): array {
         if (!($inputObjectTypeResolver instanceof AbstractUsersFilterInputObjectTypeResolver)) {
-            return $adminInputFieldNames;
+            return $sensitiveInputFieldNames;
         }
         /** @var ModuleConfiguration */
         $moduleConfiguration = App::getModule(Module::class)->getConfiguration();
         if ($moduleConfiguration->treatUserRoleAsSensitiveData()) {
-            $adminInputFieldNames[] = 'roles';
-            $adminInputFieldNames[] = 'excludeRoles';
+            $sensitiveInputFieldNames[] = 'roles';
+            $sensitiveInputFieldNames[] = 'excludeRoles';
         }
-        return $adminInputFieldNames;
+        return $sensitiveInputFieldNames;
     }
 
     public function getInputFieldDescription(
